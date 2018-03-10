@@ -14,6 +14,20 @@ function [Rz] = rotz(c)
 Rz = [cos(pi*c/180) -sin(pi*c/180) 0;sin(pi*c/180) cos(pi*c/180) 0; 0 0 1];
 endfunction
 
+function [Rx] = rotxRad(a)
+Rx = [1, 0, 0; 0, cos(a),  -sin(a); 0, sin(a), cos(a)];
+endfunction
+
+# the Y rotation matrix
+function [Ry] = rotyRad(b)
+Ry = [cos(b) 0 sin(b); 0 1 0;-sin(b) 0 cos(b)];
+endfunction
+
+# the Z rotation matrix
+function [Rz] = rotzRad(c)
+Rz = [cos(c) -sin(c) 0;sin(c) cos(c) 0; 0 0 1];
+endfunction
+
 # the X-Y-Z rotation matrix
 function [R] = rotxyz(c, b, a)
 R = [cos(pi*a/180)*cos(pi*b/180)  cos(pi*a/180)*sin(pi*b/180)*sin(pi*c/180)-sin(pi*a/180)*cos(pi*c/180)  cos(pi*a/180)*sin(pi*b/180)*cos(pi*c/180)+sin(pi*a/180)*sin(pi*c/180);
@@ -70,4 +84,32 @@ endfunction
 
 function [Translation]=translationMatrix3D(h,k,i)
   Translation=[1,0,0,h;0,1,0,k;0,0,1,i;0,0,0,1]
+endfunction
+
+function [Rx] = drotx(a)
+Rx = [1, 0, 0; 0, -sin(pi*a/180),  -cos(pi*a/180); 0, cos(pi*a/180), -sin(pi*a/180)];
+endfunction
+
+# the Y rotation matrix
+function [Ry] = droty(b)
+Ry = [-sin(pi*b/180) 0 cos(pi*b/180); 0 1 0;-cos(pi*b/180) 0 -sin(pi*b/180)];
+endfunction
+
+# the Z rotation matrix
+function [Rz] = drotz(c)
+Rz = [-sin(pi*c/180) -cos(pi*c/180) 0;cos(pi*c/180) -sin(pi*c/180) 0; 0 0 1];
+endfunction
+
+function [Rx] = drotxRad(a)
+Rx = [1, 0, 0; 0, -sin(a),  -cos(a); 0, cos(a), -sin(a)];
+endfunction
+
+# the Y rotation matrix
+function [Ry] = drotyRad(b)
+Ry = [-sin(b) 0 cos(b); 0 1 0;-cos(b) 0 -sin(b)];
+endfunction
+
+# the Z rotation matrix
+function [Rz] = drotzRad(c)
+Rz = [-sin(c) -cos(c) 0;cos(c) -sin(c) 0; 0 0 1];
 endfunction
