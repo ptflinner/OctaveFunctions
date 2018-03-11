@@ -47,7 +47,7 @@ A = [atan2(r32/cos(b*pi/180),r33/cos(b*pi/180));atan2(-r31, sqrt(r11^2+r21^2));a
 endfunction
 
 function [d]= distance3D(a,b)
-d=sqrt(power((a(1)+b(1)),2)+power((a(2)+b(2)),2)+power((a(3)+b(3)),2))
+d=sqrt(power((a(1)-b(1)),2)+power((a(2)-b(2)),2)+power((a(3)-b(3)),2))
 endfunction 
 
 function [d]= distance2D(a,b)
