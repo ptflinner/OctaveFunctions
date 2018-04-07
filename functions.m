@@ -62,6 +62,12 @@ function [Angles]= recAng(A)
   Angles=[beta*180/pi;alpha*180/pi;gamma*180/pi]
 endfunction
 
+function [Angles]= recAng2(A)
+  beta=-asin(A(3))
+  alpha=atan2(A(6),A(9))
+  gamma=atan2(A(2),A(1))
+  Angles=[beta*180/pi;alpha*180/pi;gamma*180/pi]
+endfunction
 function [Angles]= recRad(A)
   beta=atan2(-A(3),sqrt((power(A(1),2)+power(A(2),2))))
   alpha=atan2(A(2)/(cos(beta)),A(1)/cos(beta))
