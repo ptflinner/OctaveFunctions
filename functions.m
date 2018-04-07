@@ -130,3 +130,26 @@ function [e]=euler(x)
 x=pi*x/180
 e=cos(x)-sin(x)
 endfunction
+
+#Euler z
+function [e] = precession(x)
+x=pi*x/180
+e= [cos(x) sin(x) 0;-sin(x) cos(x) 0; 0 0 1];
+endfunction
+
+function [e] = spin(x)
+x=pi*x/180
+e= [cos(x) sin(x) 0;-sin(x) cos(x) 0; 0 0 1];
+endfunction
+
+function [e] = nutation(x)
+x=pi*x/180
+e= [1,0,0;0,cos(x),sin(x);0,-sin(x) cos(x)];
+endfunction
+
+function [a]=eulerAng(A)
+  theta=acos(A(9))
+  phi=-atan (A(3)/A(6))
+  psi=atan(A(7)/A(8))
+  angles=[phi*180/pi;theta*180/pi;psi*180/pi]
+endfunction
