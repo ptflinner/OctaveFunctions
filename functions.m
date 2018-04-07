@@ -1,4 +1,5 @@
 # matrices rotation functions using angles in degrees
+# global rotation multiple the angle by -1
 # the X rotation matrix
 function [Rx] = rotx(a)
 Rx = [1, 0, 0; 0, cos(pi*a/180),  -sin(pi*a/180); 0, sin(pi*a/180), cos(pi*a/180)];
@@ -47,11 +48,11 @@ A = [atan2(r32/cos(b*pi/180),r33/cos(b*pi/180));atan2(-r31, sqrt(r11^2+r21^2));a
 endfunction
 
 function [d]= distance3D(a,b)
-d=sqrt(power((a(1)+b(1)),2)+power((a(2)+b(2)),2)+power((a(3)+b(3)),2))
+d=sqrt(power((a(1)-b(1)),2)+power((a(2)-b(2)),2)+power((a(3)-b(3)),2))
 endfunction 
 
 function [d]= distance2D(a,b)
-d=sqrt(power((a(1)+b(1)),2)+power((a(2)+b(2)),2))
+d=sqrt(power((a(1)-b(1)),2)+power((a(2)-b(2)),2))
 endfunction 
 
 function [Angles]= recAng(A)
@@ -86,30 +87,40 @@ function [Translation]=translationMatrix3D(h,k,i)
   Translation=[1,0,0,h;0,1,0,k;0,0,1,i;0,0,0,1]
 endfunction
 
+# the X rotation derivation matrix
 function [Rx] = drotx(a)
 Rx = [1, 0, 0; 0, -sin(pi*a/180),  -cos(pi*a/180); 0, cos(pi*a/180), -sin(pi*a/180)];
 endfunction
 
-# the Y rotation matrix
+# the Y rotation derivation matrix
 function [Ry] = droty(b)
 Ry = [-sin(pi*b/180) 0 cos(pi*b/180); 0 1 0;-cos(pi*b/180) 0 -sin(pi*b/180)];
 endfunction
 
-# the Z rotation matrix
+# the Z rotation derivation matrix
 function [Rz] = drotz(c)
 Rz = [-sin(pi*c/180) -cos(pi*c/180) 0;cos(pi*c/180) -sin(pi*c/180) 0; 0 0 1];
 endfunction
 
+# the X rotation derivation matrix
 function [Rx] = drotxRad(a)
 Rx = [1, 0, 0; 0, -sin(a),  -cos(a); 0, cos(a), -sin(a)];
 endfunction
 
-# the Y rotation matrix
+# the Y rotation derivation matrix
 function [Ry] = drotyRad(b)
 Ry = [-sin(b) 0 cos(b); 0 1 0;-cos(b) 0 -sin(b)];
 endfunction
 
-# the Z rotation matrix
+# the Z rotation derivation matrix
 function [Rz] = drotzRad(c)
 Rz = [-sin(c) -cos(c) 0;cos(c) -sin(c) 0; 0 0 1];
+endfunction
+
+#-----------------------------QUATERNIONS------------------
+
+#Euler Identity
+function [e]=euler(x)
+x=pi*x/180
+e=cos(x)-sin(x)
 endfunction
