@@ -137,11 +137,13 @@ x=pi*x/180
 e= [cos(x) sin(x) 0;-sin(x) cos(x) 0; 0 0 1];
 endfunction
 
+#Euler y
 function [e] = spin(x)
 x=pi*x/180
 e= [cos(x) sin(x) 0;-sin(x) cos(x) 0; 0 0 1];
 endfunction
 
+#Euler x
 function [e] = nutation(x)
 x=pi*x/180
 e= [1,0,0;0,cos(x),sin(x);0,-sin(x) cos(x)];
@@ -152,4 +154,12 @@ function [a]=eulerAng(A)
   phi=-atan (A(3)/A(6))
   psi=atan(A(7)/A(8))
   angles=[phi*180/pi;theta*180/pi;psi*180/pi]
+endfunction
+
+function [r]=unitVector2D(r)
+  r=r/sqrt(power(r(1),2)+power(r(2),2))
+endfunction
+
+function [r]=unitVector3D(r)
+  r=r/sqrt(power(r(1),2)+power(r(2),2)+power(r(3),2))
 endfunction
