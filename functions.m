@@ -175,3 +175,57 @@ endfunction
 function [r]=unitVector3D(r)
   r=r/sqrt(power(r(1),2)+power(r(2),2)+power(r(3),2))
 endfunction
+
+function [b]=orthogonal(q)
+  eq(inv(q),q') 
+endfunction
+
+
+#-----------------------------------------------------
+# slide 2C 23 Not sure how to do it
+function [m]=systemConversion(g,b)
+  m=[dot(g(1),b(1)),dot(g(1),b(2)),dot(g(1),b(3));
+     dot(g(2),b(1)),dot(g(2),b(2)),dot(g(2),b(3));
+     dot(g(3),b(1)),dot(g(3),b(2)),dot(g(3),b(3))]
+endfunction
+
+function [m]=cosineSystem(g)
+  m=[cos(g(1)),cos(g(4)),cos(g(7));
+     cos(g(2)),cos(g(5)),cos(g(8));
+     cos(g(3)),cos(g(6)),cos(g(9));]
+endfunction
+
+#g is systemConversion Matrix
+#b is the single line matrix fed into systemConversion, either global or local
+#a is the angle to be given
+#I GOT THIS ONE TO WORK WITH EXERCISE 16
+function [m]=axisAngleRot(g,b,a)
+  #a=a*pi/180
+  v=1-cos(a)
+  m=[g(1)*v+cos(a),g(4)*v-b(3)*sin(a),g(7)*v+b(2)*sin(a);
+     g(2)*v+b(3)*sin(a),g(5)*v+cos(a),g(8)*v-b(1)*sin(a);
+     g(3)*v-b(2)*sin(a),g(6)*v+b(1)*sin(a),g(9)*v+cos(a)]
+  endfunction
+#-----------------------------------------------------
+#STUFF BETWEEN LINES IS STUPID AND IS PROBABLY WRONG 
+
+function [m]=isSkew(v)
+  eq(v',-1*v)
+endfunction
+
+function [m]=skew(v)
+  m=[0 -v(3) v(2);
+     v(3) 0 -v(1);
+     -v(2) v(1) 0]
+endfunction
+
+#u unit vector
+#a angle rad
+#v skew matrix
+#DOESN'T WORK BUT DON'T KNOW WHY
+#axisAngleRot is the same thing and it works
+function [m] =rodriguez(u,a,v)
+  I=[1 0 0; 0 1 0; 0 0 1]
+  vers=1-cos(a)
+  m=I*cos(a)+u*u'*vers+v*sin(a)
+endfunction
