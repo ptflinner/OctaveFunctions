@@ -55,24 +55,36 @@ function [d]= distance2D(a,b)
 d=sqrt(power((a(1)-b(1)),2)+power((a(2)-b(2)),2))
 endfunction 
 
-function [Angles]= recAng(A)
+#Fixed Angles Formula
+function [Angles]= fixedRecAng(A)
   beta=atan2(-A(3),sqrt((power(A(1),2)+power(A(2),2))))
   alpha=atan2(A(2)/(cos(beta)),A(1)/cos(beta))
   gamma=atan2(A(6)/cos(beta),A(9)/cos(beta))
   Angles=[beta*180/pi;alpha*180/pi;gamma*180/pi]
 endfunction
 
-function [Angles]= recAng2(A)
+#Fixed Rads Formula
+function [Angles]= fixedRecRad(A)
+  beta=atan2(-A(3),sqrt((power(A(1),2)+power(A(2),2))))
+  alpha=atan2(A(2)/(cos(beta)),A(1)/cos(beta))
+  gamma=atan2(A(6)/cos(beta),A(9)/cos(beta))
+  Angles=[beta;alpha;gamma]
+endfunction
+
+#Yaw-Pitch-Roll Angles Formula
+function [Angles]= yprRecAng(A)
   beta=-asin(A(3))
   alpha=atan2(A(6),A(9))
   gamma=atan2(A(2),A(1))
   Angles=[beta*180/pi;alpha*180/pi;gamma*180/pi]
 endfunction
-function [Angles]= recRad(A)
-  beta=atan2(-A(3),sqrt((power(A(1),2)+power(A(2),2))))
-  alpha=atan2(A(2)/(cos(beta)),A(1)/cos(beta))
-  gamma=atan2(A(6)/cos(beta),A(9)/cos(beta))
-  Angles=[beta;alpha;gamma]
+
+#Yaw-Pitch-Roll Rads Formula
+function [Angles]= yprRecRad(A)
+  beta=-asin(A(3))
+  alpha=atan2(A(6),A(9))
+  gamma=atan2(A(2),A(1))
+  Angles=[beta*180/pi;alpha*180/pi;gamma*180/pi]
 endfunction
 
 function [Rotate]= rotateCoord2D(A,a)
