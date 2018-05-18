@@ -219,13 +219,11 @@ function [m]=skew(v)
      -v(2) v(1) 0]
 endfunction
 
+
 #u unit vector
-#a angle rad
-#v skew matrix
-#DOESN'T WORK BUT DON'T KNOW WHY
-#axisAngleRot is the same thing and it works
-function [m] =rodriguez(u,a,v)
-  I=[1 0 0; 0 1 0; 0 0 1]
+#a angle
+function [m] =rodriguez(u,a)
+  a=a*pi/180
   vers=1-cos(a)
-  m=I*cos(a)+u*u'*vers+v*sin(a)
+  m=eye(3)*cos(a)+(u*u')*vers+skew(u)*sin(a)
 endfunction
