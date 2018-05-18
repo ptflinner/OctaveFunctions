@@ -73,10 +73,10 @@ endfunction
 
 #Yaw-Pitch-Roll Angles Formula
 function [Angles]= yprRecAng(A)
-  beta=-asin(A(3))
   alpha=atan2(A(6),A(9))
+  beta=-asin(A(3))
   gamma=atan2(A(2),A(1))
-  Angles=[beta*180/pi;alpha*180/pi;gamma*180/pi]
+  Angles=[alpha*180/pi;beta*180/pi;gamma*180/pi]
 endfunction
 
 #Yaw-Pitch-Roll Rads Formula
@@ -226,4 +226,17 @@ function [m] =rodriguez(u,a)
   a=a*pi/180
   vers=1-cos(a)
   m=eye(3)*cos(a)+(u*u')*vers+skew(u)*sin(a)
+endfunction
+
+#u is the rotation matrix
+function [phi]=axis_angle(u)
+  phi=(180/pi)*acos((u(1)+u(5)+u(9)-1)/2)
+endfunction
+
+# Extract vector from Rodriguez formula rotation matrix
+# v is the overall matrix
+# u is the initial unit vector
+function [u] = extractu(u)
+  v = (u'-u)/(2*sin(axis_angle(u)))
+  u = [v(3,2),v(1,3),v(2,1)]'
 endfunction
