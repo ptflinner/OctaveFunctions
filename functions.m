@@ -240,3 +240,42 @@ function [u] = extractu(u)
   v = (u'-u)/(2*sin(axis_angle(u)))
   u = [v(3,2),v(1,3),v(2,1)]'
 endfunction
+
+# Product of Quanternions
+#3c slide 7
+function [A] = quantMult(p0, p1, p2, p3, q0, q1, q2, q3)
+A = [p0 -p1 -p2 -p3;p1 p0 -p3 p2;p2 p3 p0 -p1;p3 -p2 p1 p0] * [q0; q1; q2; q3];
+endfunction
+
+function [q] = qConjugate(q)
+    q=q
+endfunction
+
+
+#2D Rotation
+
+#Rotation of coordinates
+function[Rx] = rotcoord(a)
+Rx = [cos(pi*a/180) sin(pi*a/180); -sin(pi*a/180) cos(pi*a/180)];
+endfunction
+
+#Rotation of vector
+function[Rx] = rotvect(a)
+Rx = [cos(pi*a/180) -sin(pi*a/180); sin(pi*a/180) cos(pi*a/180)];
+endfunction
+
+# Rotation Operator w = qvq* = Qv
+function [A] = rotationOperator(q0, q1, q2, q3, v0, v1, v2)
+A = [((2*(qo^2)-1)+(2*(q1^2))) (2*q2*q1-2*q0*q3) (2*q3*q1+2*q0*q2);(2*q1*q2+2*q0*q3) (((2*(q0^2)-1)-1)+(2*(q2^2))) (2*q3*q2-2*q0*q1);(2*q1*q3-2*q0*q2) (2*q2*q3+2*q0*q1) (((2*(q0^2)-1)-1)+(2*(q3^2)))] * [v0;v1;v2];
+endfunction
+
+
+# Transformation between two adjacent coordinate frames, i-1Ti (4a, slide 8)
+function [A] = transform(ai, alphai, di, thetai)
+A = [cos(deg2rad(thetai)) -sin(deg2rad(thetai))*cos(deg2rad(alphai)) sin(deg2rad(thetai))*sin(deg2rad(alphai)) ai*cos(deg2rad(thetai));sin(deg2rad(thetai)) cos(deg2rad(thetai))*cos(deg2rad(alphai)) -cos(deg2rad(thetai))*sin(deg2rad(alphai)) ai*sin(deg2rad(thetai));0 sin(deg2rad(alphai)) cos(deg2rad(alphai)) di;0 0 0 1];
+endfunction
+
+# same as above but inverse, iTi-1 (4a, slide 9)
+function [A] = inversetransform(ai, alphai, di, thetai)
+A = [cos(deg2rad(thetai)) sin(deg2rad(thetai)) 0 -ai;-sin(deg2rad(thetai))*cos(deg2rad(alphai)) cos(deg2rad(thetai))*cos(deg2rad(alphai)) sin(deg2rad(alphai)) -di*sin(deg2rad(alphai));sin(deg2rad(thetai))*sin(deg2rad(alphai)) -cos(deg2rad(thetai))*sin(deg2rad(alphai)) cos(deg2rad(alphai)) -di*cos(deg2rad(alphai));0 0 0 1];
+endfunction
